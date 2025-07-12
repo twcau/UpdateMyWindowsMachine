@@ -1,3 +1,7 @@
+# UpdateMyWindowsMachine
+
+A modular, production-quality PowerShell solution for automating PowerShell commands to update Microsoft Windows, Microsoft Store, and Microsoft Office; along with some third-party updates (leveraging PatchMyPC). Includes robust configuration, logging, scheduling, and interactive menu support.
+
 <!-- vscode-markdown-toc -->
 * [Overview](#Overview)
 	* [Who is the audience of this script?](#Whoistheaudienceofthisscript)
@@ -18,11 +22,7 @@
 	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
-<!-- /vscode-markdown-toc --># UpdateMyWindowsMachine
-
-A modular, production-quality PowerShell solution for automating PowerShell commands to update Microsoft Windows, Microsoft Store, and Microsoft Office; along with some third-party updates (leveraging PatchMyPC). Includes robust configuration, logging, scheduling, and interactive menu support.
-
-
+<!-- /vscode-markdown-toc -->
 
 ## <a name='Overview'></a>Overview
 
@@ -52,15 +52,16 @@ This is primarily for a home/own PC use case, or where you have a very small off
     - **Microsoft Store App Updates**: Updates Microsoft Store applications using `winget`.
     - **Microsoft Office Updates**: Detects and updates Microsoft Office installations, closing running Office apps as needed.
     - **Third-Party App Updates**: Optionally integrates with [Patch My PC Home Updater](https://patchmypc.com/home-updater) to update a wide range of third-party applications.
+- **First-Time Setup Wizard**: Interactive setup for configuration, including scheduling, log management, and update preferences.
+- **Scheduled Task Support**: Easily create or update a Windows Task Scheduler job to run the script automatically on a schedule (daily, weekly, or monthly).
 - **Configuration**
     - **Configurable Update Types**: Choose which update types to enable (Windows, Office, Winget, PatchMyPC), and any combination thereof, via a JSON config file or interactive menu.
     - **Winget Skip List**: Exclude specific apps from being updated by `winget` using a customizable skip list.
-- **First-Time Setup Wizard**: Interactive setup for configuration, including scheduling, log management, and update preferences.
-- **Robust Logging**: Logs all actions and results to a configurable directory, with retention and archiving options.
-- **Scheduled Task Support**: Easily create or update a Windows Task Scheduler job to run the script automatically on a schedule (daily, weekly, or monthly).
-- **Auto-Elevation**: Automatically relaunches itself with administrative privileges if required.
-- **Error Handling**: Robust and graceful error handling, along with informative log messages for troubleshooting.
-- Pester tests for functions
+- **Other features**
+   - **Robust Logging**: Logs all actions and results to a configurable directory, with retention and archiving options.
+   - **Auto-Elevation**: Automatically relaunches itself with administrative privileges if required.
+   - **Error Handling**: Robust and graceful error handling, along with informative log messages for troubleshooting.
+   - Pester tests for functions
 
 ## <a name='Requirements'></a>Requirements
 - PowerShell 5.1+
@@ -112,7 +113,8 @@ UpdateMyWindowsMachine/
 │   ├── Public/                               # Public functions (one per file, exported by the module)
 │   │   ├── Get-Config.ps1                    # Loads and repairs config from disk
 │   │   ├── Get-PatchMyPCInfo.ps1             # Gets Patch My PC installation info
-│   │   ├── Register-WindowsUpdateScheduledTask.ps1 # Schedules/updates Windows Task Scheduler job
+│   │   ├── Register-WindowsUpdateScheduledTask.ps1
+|   |   |                                     # Schedules/updates Windows Task Scheduler job
 │   │   ├── Remove-OldLogs.ps1                # Deletes old log files based on retention policy
 │   │   ├── Run-AllUpdates.ps1                # Orchestrates all update types (Windows, Office, Store, PatchMyPC)
 │   │   ├── Save-Config.ps1                   # Saves config to disk
