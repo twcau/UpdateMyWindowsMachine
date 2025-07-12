@@ -1,4 +1,4 @@
-# Update My PC - Windows, Store, and Office Update Automation Script
+# Update My PC - Microsoft Windows, Store, Office, and Other Application Updates Automation Script
 
 <!-- vscode-markdown-toc -->
 * [Overview](#Overview)
