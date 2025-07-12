@@ -55,7 +55,7 @@ This is primarily for a home/own PC use case, or where you have a very small off
     - **Automated Windows Updates**: Checks for and installs all available Windows updates, including security and feature updates.
     - **Microsoft Store App Updates**: Updates Microsoft Store applications using `winget`.
     - **Microsoft Office Updates**: Detects and updates Microsoft Office installations, closing running Office apps as needed.
-    - **Third-Party App Updates**: Integrates with [Patch My PC Home Updater](https://patchmypc.com/home-updater) to update a wide range of third-party applications.
+    - **Third-Party App Updates**: Optionally integrates with [Patch My PC Home Updater](https://patchmypc.com/home-updater) to update a wide range of third-party applications.
 - **Configuration**
     - **Configurable Update Types**: Choose which update types to enable (Windows, Office, Winget, PatchMyPC), and any combination thereof, via a JSON config file or interactive menu.
     - **Winget Skip List**: Exclude specific apps from being updated by `winget` using a customizable skip list.
