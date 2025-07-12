@@ -7,6 +7,7 @@
 * [Configuration](#Configuration)
 * [Requirements](#Requirements)
 * [Credits](#Credits)
+* [Like to say thank you?](#Liketosaythankyou)
 * [References & Vendor Documentation](#ReferencesVendorDocumentation)
 * [License](#License)
 
@@ -40,7 +41,7 @@
     - **Microsoft Office Updates**: Detects and updates Microsoft Office installations, closing running Office apps as needed.
     - **Third-Party App Updates**: Integrates with [Patch My PC Home Updater](https://patchmypc.com/home-updater) to update a wide range of third-party applications.
 - **Configuration**
-    - **Configurable Update Types**: Choose which update types to enable (Windows, Office, Winget, PatchMyPC) via a JSON config file or interactive menu.
+    - **Configurable Update Types**: Choose which update types to enable (Windows, Office, Winget, PatchMyPC), and any combination thereof, via a JSON config file or interactive menu.
     - **Winget Skip List**: Exclude specific apps from being updated by `winget` using a customizable skip list.
 - **First-Time Setup Wizard**: Interactive setup for configuration, including scheduling, log management, and update preferences.
 - **Robust Logging**: Logs all actions and results to a configurable directory, with retention and archiving options.
@@ -71,6 +72,12 @@ You can edit this file manually, or use the script's interactive menu.
 - Script Author: [Michael H (twcau)](https://github.com/twcau)
 - [Patch My PC Home Updater](https://patchmypc.com/home-updater)
 - [Windows Package Manager (winget)](https://learn.microsoft.com/en-us/windows/package-manager/winget/)
+
+## <a name='Liketosaythankyou'></a>Like to say thank you?
+
+Feel welcome to:
+
+[![Buy me a ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/H2H61HXBX1)
 
 ## <a name='ReferencesVendorDocumentation'></a>References & Vendor Documentation
 
