@@ -3,5 +3,6 @@
 /Logs
 /Public/Logs
 # Ignore files
-WindowsUpdateConfig.json
 Get and install all Windows Updates.xml
+UpdateMyWindowsMachine.code-workspace
+WindowsUpdateConfig.json
