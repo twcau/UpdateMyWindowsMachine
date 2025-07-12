@@ -26,7 +26,7 @@
 
 This is primarily for a home/own PC use case, or where you have a very small office environment that is a low security risk.
 
-<span style="color: red;">**Please use enterprise-grade methods of updating your Windows computers if you:**</span>
+**$${\color{red}Please use enterprise-grade methods of updating your Windows computers if you:}$$**
 - Are handling Sensitive PII,
 - Have serious audit responsibilities and accountablity around Information Security, such as ISO 27007/HIPAA/Sarbanes-Oxley Act (SOX)/PCI DSS/Graham-Leach-Bliley, etc.,
 - Need to actually meet your obligations under a Cybersecurity insurance policy your organisation holds,
