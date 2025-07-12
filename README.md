@@ -2,6 +2,7 @@
 
 <!-- vscode-markdown-toc -->
 * [Overview](#Overview)
+	* [Who is the audience of this script?](#Whoistheaudienceofthisscript)
 * [Getting Started](#GettingStarted)
 * [Features](#Features)
 * [Configuration](#Configuration)
@@ -21,6 +22,19 @@
 
 **Update My PC** is a comprehensive PowerShell automation script designed to keep your Windows system, Microsoft Store apps, Microsoft Office, and other applications up to date. It is intended to be run interactively or scheduled via Windows Task Scheduler, providing a hands-off approach to system maintenance and patching.
 
+### <a name='Whoistheaudienceofthisscript'></a>Who is the audience of this script?
+
+This is primarily for a home/own PC use case, or where you have a very small office environment that is a low security risk.
+
+**Please use enterprise-grade methods of updating your windows computers if you:**
+- Are handling Sensitive PII,
+- Have serious audit responsibilities and accountablity, such as ISO 27007/HIPAA/Sarbanes-Oxley Act (SOX)/PCI DSS/Graham-Leach-Bliley, etc.,
+- Need to actually meet your obligations under a Cybersecurity insurance policy your organisation holds,
+- Have other legal obligations that mean you can't afford to mess up, and/or
+- Any other reasons that warrant being properly serious about your enterprise computing environment.
+
+If this is you or your organisation - then you should be looking at, and budgeting for, proper solutions for maintaining your PC's updates, patching and security. This script is simply not intended for you.
+
 ## <a name='GettingStarted'></a>Getting Started
 
 1. **Clone or Download** this repository to your local machine.
@@ -35,7 +49,8 @@
 
 ## <a name='Features'></a>Features
 
-- **Updates all supported software and components on your device with a single script**
+- **Updates your choice of supported software and components with a single script**
+    - Configuration to choose which kinds or combination of top-level updates you want to run.
     - **Automated Windows Updates**: Checks for and installs all available Windows updates, including security and feature updates.
     - **Microsoft Store App Updates**: Updates Microsoft Store applications using `winget`.
     - **Microsoft Office Updates**: Detects and updates Microsoft Office installations, closing running Office apps as needed.
