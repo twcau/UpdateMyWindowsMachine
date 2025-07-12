@@ -20,11 +20,11 @@
 
 ## <a name='Overview'></a>Overview
 
-**Update My PC** is a comprehensive PowerShell automation script designed to keep your Windows system, Microsoft Store apps, Microsoft Office, and other applications up to date. It is intended to be run interactively or scheduled via Windows Task Scheduler, providing a hands-off approach to system maintenance and patching.
+**Update My PC** is a comprehensive PowerShell automation script designed to keep your Windows system, Microsoft Store apps, Microsoft Office, and other applications up to date. It is intended to be run either interactively, or as a scheduled task via Windows Task Scheduler to provide a hands-off approach to regular system maintenance and patching.
 
 ### <a name='Whoistheaudienceofthisscript'></a>Who is the audience of this script?
 
-This is primarily for a home/own PC use case, or where you have a very small office environment that is a low security risk.
+This is primarily for a home/own PC use case, or where you have a very small office environment and the work you do/data you handle is of a very low security risk.
 
 > [!CAUTION]
 > Please use enterprise-grade methods of updating your Windows computers if you:
