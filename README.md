@@ -33,8 +33,8 @@ This is primarily for a home/own PC use case, or where you have a very small off
 > - Need to actually meet your obligations under a Cybersecurity insurance policy your organisation holds,
 > - Have other legal obligations that mean you can't afford to mess up, and/or
 > - Any other reasons that warrant being properly serious about your enterprise computing environment.
-
-If you or your organisation fall into any of the above categories - then you should be looking at, budgeting for, and resourcing, proper solutions for maintaining your PC's updates, patching and security. This script is simply not intended for you.
+> 
+> If you or your organisation fall into any of these categories - then you should be looking at, budgeting for, and resourcing, proper solutions for maintaining your PC's updates, patching and security. This script is simply not intended for you.
 
 ## <a name='GettingStarted'></a>Getting Started
 
