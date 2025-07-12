@@ -72,7 +72,7 @@ This is primarily for a home/own PC use case, or where you have a very small off
 ## <a name='Usage'></a>Usage
 1. **Clone the repo**:
    ```powershell
-   git clone <your-repo-url>
+   git clone https://github.com/twcau/UpdateMyWindowsMachine
    cd UpdateMyWindowsMachine
    ```
 2. **Run the entry script**:
