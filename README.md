@@ -26,14 +26,14 @@
 
 This is primarily for a home/own PC use case, or where you have a very small office environment that is a low security risk.
 
-**Please use enterprise-grade methods of updating your windows computers if you:**
+<span style="color: red;">**Please use enterprise-grade methods of updating your Windows computers if you:**</span>
 - Are handling Sensitive PII,
-- Have serious audit responsibilities and accountablity, such as ISO 27007/HIPAA/Sarbanes-Oxley Act (SOX)/PCI DSS/Graham-Leach-Bliley, etc.,
+- Have serious audit responsibilities and accountablity around Information Security, such as ISO 27007/HIPAA/Sarbanes-Oxley Act (SOX)/PCI DSS/Graham-Leach-Bliley, etc.,
 - Need to actually meet your obligations under a Cybersecurity insurance policy your organisation holds,
 - Have other legal obligations that mean you can't afford to mess up, and/or
 - Any other reasons that warrant being properly serious about your enterprise computing environment.
 
-If this is you or your organisation - then you should be looking at, and budgeting for, proper solutions for maintaining your PC's updates, patching and security. This script is simply not intended for you.
+If you or your organisation fall into any of the above categories - then you should be looking at, budgeting for, and resourcing, proper solutions for maintaining your PC's updates, patching and security. This script is simply not intended for you.
 
 ## <a name='GettingStarted'></a>Getting Started
 
@@ -84,9 +84,7 @@ You can edit this file manually, or use the script's interactive menu.
 
 ## <a name='Credits'></a>Credits
 
-- Script Author: [Michael H (twcau)](https://github.com/twcau)
-- [Patch My PC Home Updater](https://patchmypc.com/home-updater)
-- [Windows Package Manager (winget)](https://learn.microsoft.com/en-us/windows/package-manager/winget/)
+- Author: [Michael H (twcau)](https://github.com/twcau) ([License](https://github.com/twcau/UpdateMyWindowsMachine/blob/main/LICENSE))
 
 ## <a name='Liketosaythankyou'></a>Like to say thank you?
 
@@ -100,6 +98,7 @@ Feel welcome to:
 - [Enable Script Execution Policy in PowerShell](https://www.makeuseof.com/enable-script-execution-policy-windows-powershell/)
 - [Microsoft Store App Updates](https://learn.microsoft.com/en-us/windows/package-manager/winget/)
 - [Patch My PC Documentation](https://patchmypc.com/home-updater)
+- [Windows Package Manager (winget)](https://learn.microsoft.com/en-us/windows/package-manager/winget/)
 
 ## <a name='License'></a>License
 
