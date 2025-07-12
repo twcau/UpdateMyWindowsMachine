@@ -1,0 +1,6 @@
+# Ignore folders
+/Archive
+/Logs
+# Ignore files
+WindowsUpdateConfig.json
+Get and install all Windows Updates.xml
