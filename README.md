@@ -40,12 +40,12 @@ If this is you or your organisation - then you should be looking at, and budgeti
 1. **Clone or Download** this repository to your local machine.
 2. **Review and Edit Configuration**:
    - Run the script interactively to use the setup wizard (needed to create the `WindowsUpdateConfig.json` file), or edit `WindowsUpdateConfig.json` directly if you already have one.
-3. **Run the Script**:
+3. **Run the Script interactively to configure**:
    - Right-click `WindowsUpdate.ps1` and select "Run with PowerShell" (as Administrator), or execute from a PowerShell terminal.
    - Use the interactive menu to run updates, edit configuration, or set up scheduled tasks.
    - When run interactively outside of an Administration terminal, you will be prompted via UAC to elevate your privledges
 4. **Schedule Automatic Updates** (optional):
-   - Use the script's menu or edit the config to enable and customize scheduled runs via Windows Task Scheduler.
+   - Use the script's first time setup, or configuration menu, to edit the config to enable and customise scheduled runs via Windows Task Scheduler.
 
 ## <a name='Features'></a>Features
 
