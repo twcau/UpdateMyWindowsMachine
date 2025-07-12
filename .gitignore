@@ -1,6 +1,7 @@
 # Ignore folders
 /Archive
 /Logs
+/Public/Logs
 # Ignore files
 WindowsUpdateConfig.json
 Get and install all Windows Updates.xml
