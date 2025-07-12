@@ -28,11 +28,11 @@ This is primarily for a home/own PC use case, or where you have a very small off
 
 > [!WARNING]
 > Please use enterprise-grade methods of updating your Windows computers if you:
-- Are handling Sensitive PII,
-- Have serious audit responsibilities and accountablity around Information Security, such as ISO 27007/HIPAA/Sarbanes-Oxley Act (SOX)/PCI DSS/Graham-Leach-Bliley, etc.,
-- Need to actually meet your obligations under a Cybersecurity insurance policy your organisation holds,
-- Have other legal obligations that mean you can't afford to mess up, and/or
-- Any other reasons that warrant being properly serious about your enterprise computing environment.
+> - Are handling Sensitive PII,
+> - Have serious audit responsibilities and accountablity around Information Security, such as ISO 27007/HIPAA/Sarbanes-Oxley Act (SOX)/PCI DSS/Graham-Leach-Bliley, etc.,
+> - Need to actually meet your obligations under a Cybersecurity insurance policy your organisation holds,
+> - Have other legal obligations that mean you can't afford to mess up, and/or
+> - Any other reasons that warrant being properly serious about your enterprise computing environment.
 
 If you or your organisation fall into any of the above categories - then you should be looking at, budgeting for, and resourcing, proper solutions for maintaining your PC's updates, patching and security. This script is simply not intended for you.
 
