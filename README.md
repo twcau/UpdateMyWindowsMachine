@@ -1,28 +1,23 @@
+<!-- omit from toc -->
 # UpdateMyWindowsMachine
 
 A modular, production-quality PowerShell solution for automating PowerShell commands to update Microsoft Windows, Microsoft Store, and Microsoft Office; along with some third-party updates (leveraging PatchMyPC). Includes robust configuration, logging, scheduling, and interactive menu support.
 
-<!-- vscode-markdown-toc -->
-* [Overview](#Overview)
-	* [Who is the audience of this script?](#Whoistheaudienceofthisscript)
-* [Features](#Features)
-* [Requirements](#Requirements)
-* [Usage](#Usage)
-* [Configuration](#Configuration)
-* [Structure](#Structure)
-* [Module Development](#ModuleDevelopment)
-	* [Public Functions](#PublicFunctions)
-	* [Private Helpers](#PrivateHelpers)
-* [Credits](#Credits)
-* [Like to say thank you?](#Liketosaythankyou)
-* [References & Vendor Documentation](#ReferencesVendorDocumentation)
-* [License](#License)
+- [Overview](#overview)
+  - [Who is the audience of this script?](#who-is-the-audience-of-this-script)
+- [Features](#features)
+- [Requirements](#requirements)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Structure](#structure)
+- [Module Development](#module-development)
+  - [Public Functions](#public-functions)
+  - [Private Helpers](#private-helpers)
+- [Credits](#credits)
+- [Like to say thank you?](#like-to-say-thank-you)
+- [References \& Vendor Documentation](#references--vendor-documentation)
+- [License](#license)
 
-<!-- vscode-markdown-toc-config
-	numbering=false
-	autoSave=true
-	/vscode-markdown-toc-config -->
-<!-- /vscode-markdown-toc -->
 
 ## <a name='Overview'></a>Overview
 
@@ -72,7 +67,7 @@ This is primarily for a home/own PC use case, or where you have a very small off
 ## <a name='Usage'></a>Usage
 1. **Clone the repo**:
    ```powershell
-   git clone <your-repo-url>
+   git clone https://github.com/twcau/UpdateMyWindowsMachine
    cd UpdateMyWindowsMachine
    ```
 2. **Run the entry script**:
@@ -95,26 +90,24 @@ You can edit this file manually, or use the script's interactive menu.
 ```
 UpdateMyWindowsMachine/
 ├── README.md
-├── WindowsUpdate.ps1                         # Entry point (loads module, runs menu/automation)
+├── WindowsUpdate.ps1                         # Entry point: loads module, runs menu/automation
 ├── WindowsUpdateConfig.json                  # Main configuration file (auto-repaired if corrupted or incomplete)
 ├── WindowsUpdateModule/
-│   ├── Private/                              # Private helpers (one per file, not exported)
-│   │   ├── Add-LogToMainLog.ps1              # Appends tool-specific logs to the main log
-│   │   ├── ConvertTo-YNString.ps1            # Converts boolean to Y/N string for prompts
-│   │   ├── Format-DayOfWeek.ps1              # Input normalization helpers
-│   │   ├── Format-Frequency.ps1
-│   │   ├── Format-TimeString.ps1
-│   │   ├── Get-DefaultConfig.ps1             # Provides bulletproof default config (all keys, nested included)
+│   ├── Private/                              # Private helpers (not exported)
+│   │   ├── Add-ToolLogToMainLog.ps1          # Appends tool-specific logs to the main log
+│   │   ├── Format-DayOfWeek.ps1              # Normalizes and validates day-of-week input
+│   │   ├── Format-Frequency.ps1              # Normalizes and validates frequency input (daily/weekly/monthly)
+│   │   ├── Format-TimeString.ps1             # Normalizes and validates time string input
+│   │   ├── Get-DefaultConfig.ps1             # Provides robust default config (all keys, nested included)
 │   │   ├── Helpers.ps1                       # Centralized prompt, error, and summary logic
 │   │   ├── Repair-Config.ps1                 # Validates/repairs config, auto-filling missing/null values
 │   │   ├── Test-IsElevated.ps1               # Checks if running as administrator
-│   │   ├── Test-LogDirectory.ps1             # Ensures log directory exists and is writable
-│   │   └── Write-ErrorLog.ps1                # Writes error details to log
-│   ├── Public/                               # Public functions (one per file, exported by the module)
+│   │   ├── Test-LogDirAndFile.ps1            # Ensures log directory exists and is writable
+│   │   ├── Write-Log.ps1                     # Logging implementation (writes to log files)
+│   ├── Public/                               # Public functions (exported by the module)
 │   │   ├── Get-Config.ps1                    # Loads and repairs config from disk
 │   │   ├── Get-PatchMyPCInfo.ps1             # Gets Patch My PC installation info
-│   │   ├── Register-WindowsUpdateScheduledTask.ps1
-|   |   |                                     # Schedules/updates Windows Task Scheduler job
+│   │   ├── Register-WindowsUpdateScheduledTask.ps1 # Schedules/updates Windows Task Scheduler job
 │   │   ├── Remove-OldLogs.ps1                # Deletes old log files based on retention policy
 │   │   ├── Run-AllUpdates.ps1                # Orchestrates all update types (Windows, Office, Store, PatchMyPC)
 │   │   ├── Save-Config.ps1                   # Saves config to disk
@@ -125,6 +118,8 @@ UpdateMyWindowsMachine/
 │   ├── Tests/                                # Pester tests for all major functions
 │   ├── WindowsUpdateModule.psd1              # Module manifest
 │   ├── WindowsUpdateModule.psm1              # Module loader (dot-sources all Public/Private functions)
+├── Archive/                                  # Archived/old files (not used by main script)
+├── Logs/                                     # Log files (auto-generated, not in repo)
 ```
 ## <a name='ModuleDevelopment'></a>Module Development
 - All functions are in `WindowsUpdateModule/Public` or `Private`.
@@ -133,7 +128,7 @@ UpdateMyWindowsMachine/
 
 ### <a name='PublicFunctions'></a>Public Functions
 - `Get-Config.ps1`: Loads and repairs config from disk. Migrates legacy config, auto-repairs missing/corrupt values, and returns a valid config hashtable.
-- `Get-PatchMyPCInfo.ps1`: Gets Patch My PC installation info.
+- `Get-PatchMyPCInfo.ps1`: Gets Patch My PC installation info (install path, version, etc.).
 - `Register-WindowsUpdateScheduledTask.ps1`: Schedules or updates a Windows Task Scheduler job for automated runs, based on config.
 - `Remove-OldLogs.ps1`: Deletes old log files from the log directory based on the retention policy in config.
 - `Run-AllUpdates.ps1`: Orchestrates all update types (Windows, Office, Store/Winget, PatchMyPC) as configured, with robust error handling and logging.
@@ -144,19 +139,16 @@ UpdateMyWindowsMachine/
 - `Start-FirstTimeSetup.ps1`: Interactive first-time setup wizard. Prompts user for all configuration options, validates input, and saves the config.
 
 ### <a name='PrivateHelpers'></a>Private Helpers
-- `Add-LogToMainLog.ps1`: Appends tool-specific logs to the main log.
-- `ConvertTo-YNString.ps1`: Converts boolean to Y/N string for prompts.
-- `Format-DayOfWeek.ps1`: Input normalization helpers.
-- `Format-Frequency.ps1`: Input normalization helpers.
-- `Format-TimeString.ps1`: Input normalization helpers.
-- `Get-DefaultConfig.ps1`: Provides bulletproof default config (all keys, nested included).
-- `Helpers.ps1`: Centralized prompt, error, and summary logic.
-- `Invoke-PromptOrDefault.ps1`: Prompts user with default value logic.
-- `Repair-Config.ps1`: Validates/repairs config, auto-filling missing/null values.
-- `Test-IsElevated.ps1`: Checks if running as administrator.
-- `Test-LogDirectory.ps1`: Ensures log directory exists and is writable.
-- `Write-ErrorLog.ps1`: Writes error details to log.
-- `Write-Log.ps1`: Logging implementation.
+- `Add-ToolLogToMainLog.ps1`: Appends tool-specific logs to the main log.
+- `Format-DayOfWeek.ps1`: Normalizes and validates day-of-week input for scheduling.
+- `Format-Frequency.ps1`: Normalizes and validates frequency input (daily/weekly/monthly) for scheduling.
+- `Format-TimeString.ps1`: Normalizes and validates time string input for scheduling.
+- `Get-DefaultConfig.ps1`: Provides a robust default config (all keys, nested included).
+- `Helpers.ps1`: Centralized prompt, error, and summary logic for user interaction and error handling.
+- `Repair-Config.ps1`: Validates and repairs config, auto-filling missing or null values.
+- `Test-IsElevated.ps1`: Checks if the script is running with administrative privileges.
+- `Test-LogDirAndFile.ps1`: Ensures the log directory exists and is writable, and log file can be created.
+- `Write-Log.ps1`: Implements logging (writes messages, errors, and summaries to log files).
 
 ## <a name='Credits'></a>Credits
 
