@@ -1,3 +1,37 @@
+    $showDebug = $true
+    if ($Level -eq "DEBUG" -and -not $script:DebugMode) { $showDebug = $false }
+    if ($showDebug) {
+        switch ($Level) {
+            "HEADER" { Write-Host $screenEntry -ForegroundColor Cyan; [System.Console]::ResetColor() }
+            "SUCCESS" { Write-Host $screenEntry -ForegroundColor Green; [System.Console]::ResetColor() }
+            "ERROR" { Write-Host $screenEntry -ForegroundColor Red; [System.Console]::ResetColor() }
+            "WARN" { Write-Host $screenEntry -ForegroundColor Yellow; [System.Console]::ResetColor() }
+            "NOTIFY" { Write-Host $screenEntry -ForegroundColor Magenta; [System.Console]::ResetColor() }
+            "ASK" { Write-Host $screenEntry -ForegroundColor White; [System.Console]::ResetColor() }
+            default { Write-Host $screenEntry }
+        }
+        if ($PostBreak) { Write-Host "" }
+    }
+    if ($showDebug) {
+        try {
+            if (-not $SuppressLogFile -and $logFile -and (Test-Path (Split-Path $logFile -Parent))) {
+                # Log rotation: if log file > 5MB, archive and start new
+                if ((Test-Path $logFile) -and ((Get-Item $logFile).Length -gt 5MB)) {
+                    $archiveDir = Join-Path (Split-Path $logFile -Parent) 'Archive'
+                    if (-not (Test-Path $archiveDir)) { New-Item -ItemType Directory -Path $archiveDir | Out-Null }
+                    $archiveName = "log_" + (Get-Date -Format 'yyyyMMdd_HHmmss') + ".txt"
+                    Move-Item $logFile (Join-Path $archiveDir $archiveName)
+                }
+                Add-Content -Path $logFile -Value $logEntry
+            }
+            elseif (-not $SuppressLogFile) {
+                Write-Host "[LOGGING WARNING] Could not write to log file: $logFile" -ForegroundColor Yellow
+            }
+        }
+        catch {
+            Write-Host "[LOGGING ERROR] Failed to write to log file: $logFile" -ForegroundColor Red
+        }
+    }
 function Write-Log {
     <#
     .SYNOPSIS

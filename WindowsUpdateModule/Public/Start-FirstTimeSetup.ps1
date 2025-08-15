@@ -8,7 +8,15 @@ function Start-FirstTimeSetup {
         [hashtable] The saved config object, or $null on error.
     #>
     [CmdletBinding()]
-    param()
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
+        [string]$JsonConfigPath,
+        [Parameter(Mandatory = $false)]
+        [string]$OldConfigPath,
+        [Parameter(Mandatory = $false)]
+        [hashtable]$DefaultConfig
+    )
     Write-Log "Starting first-time setup for Windows Update Automation Script." "HEADER" -PreBreak
     # 1. Load current config if it exists, else use defaults
     $config = $null
@@ -36,7 +44,7 @@ function Start-FirstTimeSetup {
     $config.TimeoutSeconds = [int](Invoke-PromptOrDefault -Prompt "Timeout (seconds) for file unlock waits" -Current $config.TimeoutSeconds -HardDefault $defaultConfig.TimeoutSeconds)
     $updateTypesDefault = ($config.UpdateTypes -join ', ')
     if (-not $updateTypesDefault) { $updateTypesDefault = $defaultConfig.UpdateTypes -join ', ' }
-    $updateTypesInput = Read-Host ("Update types to enable (comma separated: Windows, Office, Winget, PatchMyPC) [default: $updateTypesDefault]")
+    $updateTypesInput = Read-HostIfInteractive ("Update types to enable (comma separated: Windows, Office, Winget, PatchMyPC) [default: $updateTypesDefault]")
     $config.UpdateTypes = if ($updateTypesInput) {
         $updateTypesInput -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ }
     }
@@ -51,10 +59,10 @@ function Start-FirstTimeSetup {
         Write-Log "Winget Skip List Management:" "HEADER"
         Write-Log ("Current skip list: " + ($currentSkipList -join ', ')) "INFO"
         Write-Log "Options: [A]dd, [R]emove, [D]one" "ASK"
-        $action = Read-Host "Choose action (A/R/D)"
+    $action = Read-HostIfInteractive "Choose action (A/R/D)"
         switch ($action.ToUpper()) {
             'A' {
-                $toAdd = Read-Host "Enter app name or ID to add to skip list (or blank to cancel)"
+                $toAdd = Read-HostIfInteractive "Enter app name or ID to add to skip list (or blank to cancel)"
                 if ($toAdd) {
                     Write-Log "Searching winget for '$toAdd'..." "INFO"
                     try {
@@ -88,7 +96,7 @@ function Start-FirstTimeSetup {
                                 Write-Log ("[$i] $($res.Name) (ID: $($res.Id))") "INFO"
                                 $i++
                             }
-                            $sel = Read-Host "Enter number(s) to add (comma separated), or blank to cancel"
+                            $sel = Read-HostIfInteractive "Enter number(s) to add (comma separated), or blank to cancel"
                             if ($sel) {
                                 $indices = $sel -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ -match '^\d+$' }
                                 foreach ($idx in $indices) {
@@ -122,7 +130,7 @@ function Start-FirstTimeSetup {
                         Write-Log ("[$i] $item") "INFO"
                         $i++
                     }
-                    $sel = Read-Host "Enter number(s) to remove (comma separated), or blank to cancel"
+                    $sel = Read-HostIfInteractive "Enter number(s) to remove (comma separated), or blank to cancel"
                     if ($sel) {
                         $indices = $sel -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ -match '^\d+$' }
                         $toRemove = @()
@@ -194,16 +202,16 @@ function Start-FirstTimeSetup {
         }
     }
     elseif ($schedFrequency -eq 'Monthly') {
-        $monthlyType = Read-Host ("Monthly schedule: Enter 'date' for day of month (e.g. 15), or 'weekday' for Nth weekday (e.g. 2nd Tuesday)")
+    $monthlyType = Read-HostIfInteractive ("Monthly schedule: Enter 'date' for day of month (e.g. 15), or 'weekday' for Nth weekday (e.g. 2nd Tuesday)")
         if ($monthlyType -match '^(date|d)$') {
-            $domInput = Read-Host ("Day of month to run (1-31)")
+            $domInput = Read-HostIfInteractive ("Day of month to run (1-31)")
             if ($domInput -match '^(\\d{1,2})$' -and [int]$domInput -ge 1 -and [int]$domInput -le 31) {
                 $schedDayOfMonth = [int]$domInput
             }
         }
         elseif ($monthlyType -match '^(weekday|w)$') {
-            $nthInput = Read-Host ("Which week? (1st, 2nd, 3rd, 4th, last)")
-            $weekdayInput = Read-Host ("Day of week (e.g. Mon, Tuesday)")
+            $nthInput = Read-HostIfInteractive ("Which week? (1st, 2nd, 3rd, 4th, last)")
+            $weekdayInput = Read-HostIfInteractive ("Day of week (e.g. Mon, Tuesday)")
             $schedNthWeek = $nthInput
             $schedNthWeekday = Format-DayOfWeek $weekdayInput
         }
@@ -220,7 +228,7 @@ function Start-FirstTimeSetup {
     $patchInfo = Get-PatchMyPCInfo
     if (-not $patchInfo.Installed) {
         Write-Log "Patch My PC is not installed. Would you like to install it now? (Y/N)" "ASK"
-        $installPatch = Read-Host "Install Patch My PC? (Y/N)"
+    $installPatch = Read-HostIfInteractive "Install Patch My PC? (Y/N)"
         if ($installPatch -match '^(Y|y)') {
             try {
                 Write-Log "Installing Patch My PC using winget..." "NOTIFY"

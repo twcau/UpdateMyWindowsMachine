@@ -23,7 +23,7 @@ function Invoke-PromptOrDefault {
     )
     $show = $Current
     if ($null -eq $show -or $show -eq "") { $show = $HardDefault }
-    $userInput = Read-Host ("$Prompt [default: $show]")
+    $userInput = Read-HostIfInteractive ("$Prompt [default: $show]")
     if ($userInput) { $userInput } else { $show }
 }
 

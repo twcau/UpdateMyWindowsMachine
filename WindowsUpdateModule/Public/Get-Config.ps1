@@ -1,11 +1,12 @@
 function Get-Config {
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [string]$JsonConfigPath,
-        [Parameter()]
+        [Parameter(Mandatory = $false)]
         [string]$OldConfigPath,
-        [Parameter()]
+        [Parameter(Mandatory = $false)]
         [hashtable]$DefaultConfig
     )
     # Migrate from old psd1 if needed
@@ -31,7 +32,11 @@ function Get-Config {
             return $config
         }
         catch {
-            Write-Log "Failed to load config file. Recreating with defaults." "WARN"
+            $errMsg = $_.Exception.Message
+            Write-Log "Failed to load config file: $errMsg. Recreating with defaults." "WARN"
+            # Backup the bad config file for diagnostics
+            $backupPath = "$JsonConfigPath.bak_$(Get-Date -Format 'yyyyMMdd_HHmmss')"
+            try { Copy-Item $JsonConfigPath $backupPath -ErrorAction Stop } catch {}
             Save-Config -Config $DefaultConfig -JsonConfigPath $JsonConfigPath
             return $DefaultConfig
         }

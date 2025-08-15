@@ -1,7 +1,8 @@
 function Set-GlobalsFromConfig {
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory)]
+    [Parameter(Mandatory = $true)]
+    [ValidateNotNullOrEmpty()]
         [hashtable]$Config
     )
     # Defensive: Use correct case for config keys

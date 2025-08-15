@@ -1,8 +1,11 @@
 function Register-WindowsUpdateScheduledTask {
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [hashtable]$Config,
+        [Parameter(Mandatory = $false)]
+        [ValidateNotNullOrEmpty()]
         [string]$TaskName = "UpdateMyWindowsMachine"
     )
     $taskName = $TaskName

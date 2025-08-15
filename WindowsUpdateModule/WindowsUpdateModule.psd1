@@ -8,20 +8,20 @@
     Description       = 'Modular PowerShell module for Windows, Office, Store, and third-party update automation.'
     PowerShellVersion = '5.1'
     FunctionsToExport = @(
-        'Get-Config',
-        'Save-Config',
-        'Set-GlobalsFromConfig',
-        'Run-AllUpdates',
-        'Register-WindowsUpdateScheduledTask',
-        'Start-FirstTimeSetup',
-        'Show-MainMenu',
-        'Show-ConfigMenu',
-        'Invoke-PromptOrDefault',
-        'ConvertTo-YNString',
-        'Show-SettingsSummary',
-        'Format-DayOfWeek',
-        'Format-Frequency',
-        'Format-TimeString'
+    'Get-Config',
+    'Save-Config',
+    'Set-GlobalsFromConfig',
+    'Invoke-AllUpdates',
+    'Register-WindowsUpdateScheduledTask',
+    'Start-FirstTimeSetup',
+    'Show-MainMenu',
+    'Show-ConfigMenu',
+    'Invoke-PromptOrDefault',
+    'ConvertTo-YNString',
+    'Show-SettingsSummary',
+    'Format-DayOfWeek',
+    'Format-Frequency',
+    'Format-TimeString'
     )
     PrivateData       = @{
         PSData = @{

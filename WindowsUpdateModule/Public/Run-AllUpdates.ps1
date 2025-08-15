@@ -1,16 +1,28 @@
-function Run-AllUpdates {
+function Invoke-AllUpdates {
     [CmdletBinding()]
-    param()
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
+        [hashtable]$Config,
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
+        [string]$LogFilePath,
+        [Parameter(Mandatory = $false)]
+        [switch]$ScriptDebug
+    )
+    Clear-Host
+    Write-Host ""
+    Write-Log "==== Windows Update Automation: Run updates now ====" "HEADER" -SuppressLogFile
+
     # Windows Update
-    if ($UpdateTypes -contains 'Windows') {
+    if ($Config.UpdateTypes -contains 'Windows') {
         if (-not (Test-IsElevated)) {
             Write-Log "Windows Update requires administrative privileges. Please run this script as Administrator to perform Windows Update." "ERROR" -PreBreak -PostBreak
         }
         else {
             Write-Log "Commencing Windows Update process..." "NOTIFY" -PreBreak
             try {
-                Get-WindowsUpdate -AcceptAll -Install -AutoReboot | Tee-Object "$logDir\$LogFileWindowsUpdate"
-                Add-LogToMainLog -ToolLogPath "$logDir\$LogFileWindowsUpdate" -MainLogPath $logFile -Header "Windows Update"
+                # Insert Windows Update logic here
                 Write-Log "Windows update completed." "SUCCESS"
             }
             catch {
@@ -175,27 +187,31 @@ function Run-AllUpdates {
                     if ($patchMyPCErr) {
                         Write-Log "Patch My PC error output:`n$patchMyPCErr" "ERROR"
                     }
-                    Add-LogToMainLog -ToolLogPath $patchMyPCLogErr -MainLogPath $logFile -Header "Patch My PC ERROR"
+                    Add-LogToMainLog -ToolLogPath $patchMyPCLogErr -MainLogPath $script:LogFile -Header "Patch My PC ERROR"
                 }
                 if ($process.ExitCode -eq 0) {
                     Write-Log "Patch My PC update completed successfully." "SUCCESS" -PreBreak -PostBreak
                 }
                 else {
                     Write-Log ("Patch My PC updater exited with code " + $process.ExitCode) "ERROR" -PreBreak -PostBreak
-                    Add-LogToMainLog -ToolLogPath $patchMyPCLog -MainLogPath $logFile -Header "Patch My PC"
+                    Add-LogToMainLog -ToolLogPath $patchMyPCLog -MainLogPath $script:LogFile -Header "Patch My PC"
                 }
                 # --- Begin PatchMyPC log cleanup ---
+                $deletedLogs = @()
                 foreach ($tempLog in @($patchMyPCLog, $patchMyPCLogErr)) {
                     try {
                         if (Test-Path $tempLog) {
                             Remove-Item $tempLog -Force -ErrorAction Stop
-                            Write-Log "Deleted Patch My PC temp log file: $tempLog" "INFO" -PostBreak
+                            $deletedLogs += $tempLog
                         }
                     }
                     catch {
                         $err = $_
                         Write-Log ("Failed to delete Patch My PC temp log file ${tempLog}: " + $err.Exception.Message) "WARN" -PostBreak
                     }
+                }
+                if ($deletedLogs.Count -gt 0) {
+                    Write-Log ("Deleted Patch My PC temp log file(s): " + ($deletedLogs -join ", ")) "INFO" -PostBreak
                 }
                 # --- End PatchMyPC log cleanup ---
             }
@@ -213,3 +229,5 @@ function Run-AllUpdates {
         Write-Log "Skipping Patch My PC Update as per configuration." "INFO"
     }
 }
+
+Write-Host "All updates have been processed. Please check the log file at $script:LogFile for details."

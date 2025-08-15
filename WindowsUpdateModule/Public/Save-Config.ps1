@@ -9,9 +9,11 @@ function Save-Config {
     #>
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory)]
+    [Parameter(Mandatory = $true)]
+    [ValidateNotNullOrEmpty()]
         [hashtable]$Config,
-        [Parameter(Mandatory)]
+    [Parameter(Mandatory = $true)]
+    [ValidateNotNullOrEmpty()]
         [string]$JsonConfigPath
     )
     $json = $Config | ConvertTo-Json -Depth 5
